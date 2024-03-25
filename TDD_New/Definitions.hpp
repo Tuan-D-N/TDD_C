@@ -44,7 +44,7 @@ namespace qc
   using BitString = std::bitset<128>;
 
   // floating-point type used throughout the library
-  using fp = long double;
+  using fp = double;
 
   constexpr fp PARAMETER_TOLERANCE = 1e-13;
 
