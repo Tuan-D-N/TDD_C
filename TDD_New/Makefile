@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS = 
 
 # Specify the target executable
-TARGET = myprogram.out
+TARGET = ../TDDRun.out
 
 # Specify the source files
 SRCS = CircuitOptimizer.cpp \
