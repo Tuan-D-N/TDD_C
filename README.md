@@ -8,6 +8,6 @@ Carries xtensor and xtl dependecies in files.
 
 ## Compilation of main.cpp
 1) cd ./TDD_New
-2) make
+2) make  
 The output file is TDDRun.out.
 This compilation uses the gcc compiler and requires std c++ library and math library to be part of build tools.
