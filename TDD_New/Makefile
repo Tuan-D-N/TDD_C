@@ -38,7 +38,7 @@ $(TARGET): $(OBJS)
 
 # Rule to build object files from source files
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $^ -o $@ -I ./ -lstdc++ -lc -lm
+	$(CC) $(CFLAGS) -c $^ -o $@ -I ./ -I ./ -lstdc++ -lc -lm
 
 # Clean rule to remove generated files
 clean:
