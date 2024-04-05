@@ -34,38 +34,38 @@ all: $(TARGET)
 
 # Rule to build the target executable
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^ -lstdc++ -lc -lm
+	$(CC) $(CFLAGS) -o $@ $^ -lstdc++ -lm
 
 # Rule to build object files from source files
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $^ -o $@ -I ./ -I ./ -lstdc++ -lc -lm
+	$(CC) $(CFLAGS) -c $^ -o $@ -I ./ -I ./Dependencies
 
 # Clean rule to remove generated files
 clean:
 	rm -f $(OBJS) $(TARGET)
 
 
-test:
-	gcc -o main  \
-dd/Edge.o \
-dd/Node.o \
-dd/Operations.o \
-operations/Expression.o \
-operations/NonUnitaryOperation.o \
-operations/Operation.o \
-operations/SymbolicOperation.o \
-parsers/GRCSParser.o \
-parsers/QASMParser.o \
-parsers/qasm_parser/Parser.o \
-parsers/qasm_parser/Scanner.o \
-parsers/QCParser.o \
-parsers/RealParser.o \
-parsers/TFCParser.o \
-QuantumComputation.o \
-main.o \
-CircuitOptimizer.o \
-operations/StandardOperation.o \
--I ./ \
--lstdc++ \
--lc \
--lm \
+# test:
+# 	gcc -o main  \
+# dd/Edge.o \
+# dd/Node.o \
+# dd/Operations.o \
+# operations/Expression.o \
+# operations/NonUnitaryOperation.o \
+# operations/Operation.o \
+# operations/SymbolicOperation.o \
+# parsers/GRCSParser.o \
+# parsers/QASMParser.o \
+# parsers/qasm_parser/Parser.o \
+# parsers/qasm_parser/Scanner.o \
+# parsers/QCParser.o \
+# parsers/RealParser.o \
+# parsers/TFCParser.o \
+# QuantumComputation.o \
+# main.o \
+# CircuitOptimizer.o \
+# operations/StandardOperation.o \
+# -I ./ \
+# -lstdc++ \
+# -lc \
+# -lm \
