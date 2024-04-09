@@ -18,38 +18,41 @@ int save_data();
 #include <xtensor/xfixed.hpp>
 #include <xtensor/xtensor.hpp>
 
-int main(int argc, char *argv[])
-{
-	xt::xarray<double> arr1{{1.0, 2.0, 3.0},
-							{2.0, 5.0, 7.0},
-							{2.0, 5.0, 7.0}};
+#include <filesystem>
 
-	xt::xarray<dd::ComplexValue> arr2{{1, 2}, {3, 4}, {5, 6}};
+namespace fs = std::filesystem;
+// int main(int argc, char *argv[])
+// {
+// 	xt::xarray<double> arr1{{1.0, 2.0, 3.0},
+// 							{2.0, 5.0, 7.0},
+// 							{2.0, 5.0, 7.0}};
 
-	xt::xarray<double> arr3{{{1.0, 2.0, 3.0},
-							 {2.0, 5.0, 7.0},
-							 {2.0, 5.0, 7.0}},
-							{{1.0, 2.0, 3.0},
-							 {2.0, 5.0, 7.0},
-							 {2.0, 5.0, 7.0}}};
+// 	xt::xarray<dd::ComplexValue> arr2{{1, 2}, {3, 4}, {5, 6}};
 
-	std::cout << xt::view(arr3, xt::all(), 0, 1) << std::endl;
+// 	xt::xarray<double> arr3{{{1.0, 2.0, 3.0},
+// 							 {2.0, 5.0, 7.0},
+// 							 {2.0, 5.0, 7.0}},
+// 							{{1.0, 2.0, 3.0},
+// 							 {2.0, 5.0, 7.0},
+// 							 {2.0, 5.0, 7.0}}};
 
-	auto shape = arr2.shape();
+// 	std::cout << xt::view(arr3, xt::all(), 0, 1) << std::endl;
 
-	std::cout << arr2.size() << std::endl;
+// 	auto shape = arr2.shape();
 
-	// auto dd = std::make_unique<dd::Package<>>(10);
+// 	std::cout << arr2.size() << std::endl;
 
-	// xt::xarray<int> U = { {{{1, 0}, {0, 1}}, {{0, 0}, {0, 0}}}, {{{0, 0}, {0, 0}}, {{0, 1}, {1, 0}}} };
+// 	// auto dd = std::make_unique<dd::Package<>>(10);
 
-	// dd::Tensor ts = { U,{} };
+// 	// xt::xarray<int> U = { {{{1, 0}, {0, 1}}, {{0, 0}, {0, 0}}}, {{{0, 0}, {0, 0}}, {{0, 1}, {1, 0}}} };
 
-	// auto tdd = dd->Tensor_2_TDD(ts);
-	// dd::export2Dot(tdd.e, "tdd1");
-}
+// 	// dd::Tensor ts = { U,{} };
 
-int main2()
+// 	// auto tdd = dd->Tensor_2_TDD(ts);
+// 	// dd::export2Dot(tdd.e, "tdd1");
+// }
+
+int main()
 {
 
 	// qc::QuantumComputation qc1{};
@@ -60,24 +63,56 @@ int main2()
 	// dd->printInformation();
 	// serialize(dd1, "output.ser");
 
-	string path2 = "Benchmarks/";
+	string path2 = "Benchmarks2/";
+	if (true)
+	{
+		for (const auto &entry : fs::directory_iterator(path2))
+		{
+			if (fs::is_regular_file(entry))
+			{
+				// std::cout << entry.path().filename() << std::endl;
+				string file_name = "quantum_volume_n2_d5.qasm";
+				file_name = entry.path().filename();
+				// string file_name = "3_17_13_2.qasm";
 
-	string file_name = "test.qasm";
-	int *nodes;
-	int n = get_qubits_num(path2 + file_name);
-	auto dd = std::make_unique<dd::Package<>>(3 * n);
-	clock_t start_t, finish_t;
-	double time_t;
-	std::cout << "File name:" << file_name << std::endl;
-	start_t = clock();
-	nodes = Simulate_with_tdd(path2, file_name, dd);
-	finish_t = clock();
-	time_t = (double)(finish_t - start_t) / CLOCKS_PER_SEC;
-	std::cout << "Time:" << time_t << std::endl;
-	std::cout << "Nodes max:" << *nodes << std::endl;
-	std::cout << "Nodes Final:" << *(nodes + 1) << std::endl;
-	std::cout << "===================================" << std::endl;
+				int *nodes;
+				int n = get_qubits_num(path2 + file_name);
+				auto dd = std::make_unique<dd::Package<>>(3 * n);
+				clock_t start_t, finish_t;
+				double time_t;
+				std::cout << "File name:" << file_name << std::endl;
+				start_t = clock();
+				nodes = Simulate_with_tdd(path2, file_name, dd);
+				finish_t = clock();
+				time_t = (double)(finish_t - start_t) / CLOCKS_PER_SEC;
+				std::cout << "Time:" << time_t << std::endl;
+				std::cout << "Nodes max:" << *nodes << std::endl;
+				std::cout << "Nodes Final:" << *(nodes + 1) << std::endl;
+				std::cout << "===================================" << std::endl;
+			}
+		}
+	}
+	else
+	{
+		path2 = "Benchmarks/";
+		string file_name = "quantum_volume_n4_d5.qasm";
+		// string file_name = "3_17_13_2.qasm";
 
+		int *nodes;
+		int n = get_qubits_num(path2 + file_name);
+		auto dd = std::make_unique<dd::Package<>>(3 * n);
+		clock_t start_t, finish_t;
+		double time_t;
+		std::cout << "File name:" << file_name << std::endl;
+		start_t = clock();
+		nodes = Simulate_with_tdd(path2, file_name, dd);
+		finish_t = clock();
+		time_t = (double)(finish_t - start_t) / CLOCKS_PER_SEC;
+		std::cout << "Time:" << time_t << std::endl;
+		std::cout << "Nodes max:" << *nodes << std::endl;
+		std::cout << "Nodes Final:" << *(nodes + 1) << std::endl;
+		std::cout << "===================================" << std::endl;
+	}
 	// std::cout << "File name:" << file_name << std::endl;
 	// auto dd2 = std::make_unique<dd::Package<>>(3 * n);
 	// start_t = clock();
@@ -103,7 +138,7 @@ int main2()
 	// std::cout << "===================================" << std::endl;
 
 	// save_data();
-	system("pause");
+	// system("pause");
 	return 0;
 }
 
